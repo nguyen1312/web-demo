@@ -8,6 +8,7 @@ import Footer from './Footer/Footer';
 import { PortfolioProvider } from '../context/context';
 
 import { heroData, aboutData, projectsData, contactData, footerData } from '../mock/data';
+import VQA from './Demo/VQA';
 
 function App() {
   const [hero, setHero] = useState({});
@@ -29,7 +30,7 @@ function App() {
       <Hero />
       <About />
       <Projects />
-      <Contact />
+      <VQA />
       <Footer />
     </PortfolioProvider>
   );

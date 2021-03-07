@@ -1,0 +1,25 @@
+.Chart {
+    text-align: left;
+    margin: 15px;
+
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;   
+    flex: 1;
+}
+.answer {
+    margin-left: 60%;
+}
+.probability {
+    margin-right: 30%;
+}
+
