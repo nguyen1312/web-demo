@@ -28,8 +28,8 @@ export const aboutData = {
 export const projectsData = [
   {
     id: nanoid(),
-    img: 'project.jpg',
-    title: '',
+    img: 'project.png',
+    title: 'Visual Question Answering System',
     info: '',
     info2: '',
     url: '',
