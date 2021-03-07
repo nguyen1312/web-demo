@@ -8,6 +8,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+    padding: 1%;
     
 }
 .column {
@@ -17,7 +18,7 @@
     flex: 1;
 }
 .answer {
-    margin-left: 60%;
+    margin-left: 40%;
 }
 .probability {
     margin-right: 30%;
