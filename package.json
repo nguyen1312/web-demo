@@ -11,7 +11,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "heroku-postbuild": "gatsby build"
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
@@ -33,7 +34,6 @@
     "react-dom": "^16.13.1",
     "react-github-btn": "^1.2.0",
     "react-helmet": "^6.1.0",
-    "react-images-upload": "^1.2.8",
     "react-responsive-carousel": "^3.2.13",
     "react-reveal": "^1.2.2",
     "react-router-dom": "^5.2.0",
