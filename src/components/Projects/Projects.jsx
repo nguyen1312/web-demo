@@ -54,10 +54,21 @@ const Projects = () => {
                           </p>
                         </div>
                         <Button>
-                          <Link to="demo" smooth duration={1000}>
+                          <Link to="contact" smooth duration={1000}>
                             {'See Live'}
                           </Link>
                         </Button>
+                        <Button style={{margin:"5%"}}>
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cta-btn text-color-main"
+                            href="/test"
+                          >
+                            Test Yourself
+                          </a>
+                        </Button>
+                       
                       </div>
                     </Fade>
                   </Col>
@@ -70,30 +81,23 @@ const Projects = () => {
                       distance="10px"
                     >
                       <div className="project-wrapper__image">
-                        <a
-                          href={url || '#demo'}
-                          target="_blank"
-                          aria-label="Project Link"
-                          rel="noopener noreferrer"
+                        <Tilt
+                          options={{
+                            reverse: false,
+                            max: 8,
+                            perspective: 1000,
+                            scale: 1,
+                            speed: 300,
+                            transition: true,
+                            axis: null,
+                            reset: true,
+                            easing: 'cubic-bezier(.03,.98,.52,.99)',
+                          }}
                         >
-                          <Tilt
-                            options={{
-                              reverse: false,
-                              max: 8,
-                              perspective: 1000,
-                              scale: 1,
-                              speed: 300,
-                              transition: true,
-                              axis: null,
-                              reset: true,
-                              easing: 'cubic-bezier(.03,.98,.52,.99)',
-                            }}
-                          >
-                            <div data-tilt className="thumbnail rounded">
-                              <ProjectImg alt={title} filename={img} />
-                            </div>
-                          </Tilt>
-                        </a>
+                          <div data-tilt className="thumbnail rounded">
+                            <ProjectImg alt={title} filename={img} />
+                          </div>
+                        </Tilt>
                       </div>
                     </Fade>
                   </Col>

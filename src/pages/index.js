@@ -4,7 +4,6 @@ import App from '../components/App';
 import { headData } from '../mock/data';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/main.scss';
-
 export default () => {
   const { title, lang, description } = headData;
 
@@ -16,7 +15,7 @@ export default () => {
         <html lang={lang || 'en'} />
         <meta name="description" content={description || 'Visual Question Answering'} />
       </Helmet>
-      <App />
+      <App/>
     </>
   );
 };
