@@ -8,8 +8,8 @@ class UploadImg extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-        picture: [],
-        base64URL: ""
+        base64URL: "",
+        file: []
       };
     this.onDrop = this.onDrop.bind(this);
     this.handleSummit = this.handleSummit.bind(this)
@@ -25,23 +25,27 @@ class UploadImg extends React.Component {
   }
 
   onDrop(pictureFile, pictureDataURLs) {
-    let file = pictureFile[0]
-    console.log(file)
-    this.getBase64(file)
-      .then(result => {
-        file["base64"] = result;
-        this.setState({
-          base64URL: result,
-          file
+    if (pictureFile.length > 0) {
+      let file = pictureFile[0]
+      console.log(file)
+      this.getBase64(file)
+        .then(result => {
+          file["base64"] = result;
+          this.setState({
+            base64URL: result,
+            file: pictureFile
+          });
+        })
+        .catch(err => {
+          console.log(err);
         });
+      } 
+    else {
+      this.setState({
+        base64URL: "",
+        file: pictureFile
       })
-      .catch(err => {
-        console.log(err);
-      });
-
-    this.setState({
-      file: pictureFile
-    });
+    }
   }
 
   getBase64(file) {
@@ -75,7 +79,8 @@ class UploadImg extends React.Component {
             maxFileSize={5242880}
             singleImage={true}
         />
-        { this.state.picture.length > 0 && <Button onClick={ this.handleSummit }>{ "Submit" }</Button> }
+        {console.log(this.state.file)}
+        { this.state.file.length > 0 && <Button onClick={ this.handleSummit }>{ "Submit" }</Button> }
 
         <div style={{
                 position: "fixed",
