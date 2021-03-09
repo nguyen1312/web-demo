@@ -9,8 +9,7 @@ class UploadImg extends React.Component {
     super(props);
     this.state = { 
         picture: [],
-        base64URL: "" 
-
+        base64URL: ""
       };
     this.onDrop = this.onDrop.bind(this);
     this.handleSummit = this.handleSummit.bind(this)
@@ -76,7 +75,7 @@ class UploadImg extends React.Component {
             maxFileSize={5242880}
             singleImage={true}
         />
-        <Button onClick={ this.handleSummit }>{ "Submit" }</Button>
+        { this.state.picture.length > 0 && <Button onClick={ this.handleSummit }>{ "Submit" }</Button> }
 
         <div style={{
                 position: "fixed",
