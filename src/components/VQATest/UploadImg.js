@@ -1,31 +1,83 @@
 import React, { Component } from "react";
 import ImageUploader from "react-images-upload";
 import Wave from 'react-wavify'
+import UploadBase64CodeApi from '../../api/uploadBase64Code'
+import { Button } from 'reactstrap'
 
 class UploadImg extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pictures: [] };
+    this.state = { 
+        picture: [],
+        base64URL: "" 
+
+      };
     this.onDrop = this.onDrop.bind(this);
+    this.handleSummit = this.handleSummit.bind(this)
   }
 
-  onDrop(pictureFiles, pictureDataURLs) {
+  handleSummit() {
+    let { base64URL } = this.state 
+    UploadBase64CodeApi.post({ base64URL }).then((res, data) => {
+      console.log("Upload Image Successful")
+    }).catch((err) => {
+      console.log(err)
+    }) 
+  }
+
+  onDrop(pictureFile, pictureDataURLs) {
+    let file = pictureFile[0]
+    console.log(file)
+    this.getBase64(file)
+      .then(result => {
+        file["base64"] = result;
+        this.setState({
+          base64URL: result,
+          file
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
     this.setState({
-      pictures: this.state.pictures.concat(pictureFiles)
+      file: pictureFile
     });
   }
 
+  getBase64(file) {
+    return new Promise(resolve => {
+      let fileInfo;
+      let baseURL = "";
+  
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        console.log("Called", reader);
+        baseURL = reader.result;
+        console.log(baseURL);
+        resolve(baseURL);
+      };
+    });
+  };
+  
+
   render() {
+    
     return (
         <div>
         <ImageUploader
             withIcon={false}
             withPreview={true}
-            buttonText="Choose images"
+            buttonText="Choose image"
             onChange={this.onDrop}
             imgExtension={[".jpg", ".gif", ".png", ".gif"]}
             maxFileSize={5242880}
+            singleImage={true}
         />
+        <Button onClick={ this.handleSummit }>{ "Submit" }</Button>
+
         <div style={{
                 position: "fixed",
                 bottom: "0",
