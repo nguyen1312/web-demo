@@ -4,7 +4,7 @@ import axios from 'axios'
 
 class UploadContentApiType2 {
     static post(file, question) {
-        const uri = API_ROUTE + "/upload-content-2"
+        const uri = API_ROUTE + "/upload-image"
         const formData = new FormData();
         formData.append('myImage', file);
         formData.append('question', question);
