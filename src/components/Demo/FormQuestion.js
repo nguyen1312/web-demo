@@ -15,7 +15,7 @@ const FormQuestion = (props) => {
   const [prediction, setPrediction] = useState([])
   const handleChangeQuestion = (e) => setQuestion(e.target.value)
   const handleChangeId = (e) => setId(e.target.value)
-  const handleSummit = () => {
+  handleSummit = () => {
     UploadContentApi.post({id, question}).then((res, data) => {
       setPrediction(res.data.substring(1, res.data.length -1).split(","))
       console.log("hihi: ", prediction)

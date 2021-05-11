@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button } from 'reactstrap';
 import ReactPlayer from 'react-player'
 import YouTube from 'react-youtube';
 import captureVideoFrame from 'capture-video-frame'
@@ -7,6 +6,8 @@ import '../../style/vqa/UploadVideo.css'
 import { Upload } from '@progress/kendo-react-upload';
 import { ProgressBar } from "react-bootstrap";
 import axios,  { CancelToken, isCancel } from 'axios';
+import { Button, Form, FormGroup, Label, Input, Table } from 'reactstrap';
+import UploadContentApiType2 from '../../api/uploadContentApiType2'
 
 
 /**
@@ -21,6 +22,9 @@ class UploadCapFrame extends React.Component {
         this.state = {
             playing: true,
             image: null,
+            isLoadVideo: false,
+            isCaptureFrame: false,
+            question: "",
             file: "",
             uploadPercentage: 0
         }
@@ -32,12 +36,25 @@ class UploadCapFrame extends React.Component {
             this.setState({file: URL.createObjectURL(event.target.files[0])})
         }
     }
-
+    handleChangeQuestion = (event) => this.setState({question: event.target.value})
+    handleSummit = () => {
+        let file = this.state.image
+        let question = this.state.question
+        UploadContentApiType2.post(file, question).then((res, data) => {
+          console.log("Upload Image Successful")
+        //   setPrediction(res.data.substring(1, res.data.length -1).split(","))
+        //   console.log("hihi: ", prediction)
+        //   console.log("Upload Image Successful")
+        }).catch((err) => {
+          console.log(err)
+        }) 
+    }
     uploadFile = (event) => {
         let data = new FormData();
         data.append("file", event.target.files[0]);
         if(event.target.files.length !== 0){
-            this.setState({file: URL.createObjectURL(event.target.files[0])})
+            this.setState({file: URL.createObjectURL(event.target.files[0]),
+                           isLoadVideo: true })
         }
         const options = {
             onUploadProgress: progressEvent => {
@@ -137,22 +154,41 @@ class UploadCapFrame extends React.Component {
                     />
                   
                 </div>
-                        
-                <Button outline color="success" size="lg" onClick={() => this.setState({ playing: true })}> Play </Button>
-                <Button outline color="success" size="lg" onClick={() => this.setState({ playing: false })}> Pause </Button>
-                <Button outline color="success" size="lg" onClick={() => {
-                    console.log(this.player)
-                    const frame = captureVideoFrame(this.player.getInternalPlayer())
-                console.log('captured frame', frame)
-                this.setState({ image: frame.dataUri })
-                }}> Capture Frame </Button>
-                <br />
+                { this.state.isLoadVideo && <>
+                    <Button outline color="success" size="lg" onClick={() => this.setState({ playing: true })}> Play </Button>
+                    <Button outline color="success" size="lg" onClick={() => this.setState({ playing: false })}> Pause </Button>
+                    <Button outline color="success" size="lg" onClick={() => {
+                        console.log(this.player)
+                        const frame = captureVideoFrame(this.player.getInternalPlayer())
+                    console.log('captured frame', frame)
+                    this.setState({ image: frame.dataUri,
+                                    isCaptureFrame: true })
+                    }}> Capture Frame </Button>
+                    <br />
+                </>
+                }
                 {
                     this.state.image && <>
                         <br/>
                         <img src={this.state.image} width='500px' />
                     </>
                 }
+                {this.state.isCaptureFrame && <>
+                    
+                    <Form>
+                    <FormGroup>
+                        <Label for="exampleText"> Enter your Question </Label>
+                        <Input className="textarea" 
+                                type="textarea" 
+                                name="text" 
+                                id="exampleText" 
+                                onChange={this.handleChangeQuestion}
+
+                        />
+                        </FormGroup>
+                        <Button onClick={this.handleSummit }> Submit </Button>
+                    </Form>
+                </>}
             </div>
         );
     }

@@ -18,7 +18,6 @@ class UploadQuestion extends Component {
         questionContent: e.target.value
       })
     }
-
     uploadHandler() {
       let data = this.state.questionContent
       UploadQuestionApi.postQuestion(data).then((res, data) => {
