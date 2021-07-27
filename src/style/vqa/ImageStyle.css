@@ -1,4 +1,28 @@
 .image-style {
-    width:200px;
+    width:600px;
     height:600px;
+}
+.outer {
+    display: flex;
+  }
+  
+  .inner {
+    margin-top: 100px;
+    height: 550px;
+    width: 850px;
+    margin-bottom: 2.72%;
+  }
+  .inner + .inner {
+    margin-bottom: 0;
+  }
+  
+  .inner_featured {
+    height: 1030px;
+    width: 2340px;
+    margin-top: 15px;
+    
+}
+.box {
+    display: flex;
+    flex-direction: row-reverse;
 }

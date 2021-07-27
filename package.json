@@ -39,6 +39,7 @@
     "react-github-btn": "^1.2.0",
     "react-helmet": "^6.1.0",
     "react-images-upload": "^1.2.8",
+    "react-notifications": "^1.7.2",
     "react-player": "^2.9.0",
     "react-responsive-carousel": "^3.2.13",
     "react-reveal": "^1.2.2",
@@ -85,5 +86,5 @@
       "git add"
     ]
   },
-  "proxy": "http://115.78.234.111:5000"
+  "proxy": "https://af4e6db2f6d3.ngrok.io/"
 }

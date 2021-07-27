@@ -4,7 +4,7 @@ import axios from 'axios'
 
 class UploadContentApi {
     static post(payload) {
-        const uri = API_ROUTE + "/upload-content"
+        const uri = API_ROUTE + "/extract_vqa"
         return axios.post(uri, payload)
     }
 }

@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import '../../style/vqa/ImageStyle.css'
+
 class ImageDisplay extends Component {
     constructor(props)
     {

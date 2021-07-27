@@ -25,7 +25,6 @@ class UploadImage extends Component {
 
     handleChange(event) {
       const file = event.target.files[0]
-  
       if (!file) {
         return
       }
@@ -42,7 +41,7 @@ class UploadImage extends Component {
 
     uploadHandler(e) {
       const formData = new FormData()
-      formData.append('file', this.state.imageFile, 'img.png')
+      formData.append('image', this.state.imageFile, 'img.png')
       
       UploadImageApi.postImage(formData)
       .then(function(response, data) {

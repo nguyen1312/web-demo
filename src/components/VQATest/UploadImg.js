@@ -1,26 +1,31 @@
 import React, { Component } from "react";
 import ImageUploader from "react-images-upload";
 import Wave from 'react-wavify'
-import UploadBase64CodeApi from '../../api/uploadBase64Code'
+import "../../style/vqa/ImageStyle.css"
+import UploadImageApi from "../../api/uploadImageApi";
 import { Button } from 'reactstrap'
+import { left } from "@popperjs/core";
+import FormQuestion from "../Demo/FormQuestion";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class UploadImg extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
         base64URL: "",
-        file: []
+        file: [],
+        isSuccessful: false
       };
     this.onDrop = this.onDrop.bind(this);
     this.handleSummit = this.handleSummit.bind(this)
   }
 
   handleSummit() {
-    let { base64URL } = this.state 
-    UploadBase64CodeApi.post({ base64URL }).then((res, data) => {
-      console.log("Upload Image Successful")
+    let { base64URL, file } = this.state 
+    const data= new FormData()
+    data.append("image", file[0])
+    UploadImageApi.postImage(data).then((res, data) => {
     }).catch((err) => {
-      console.log(err)
     }) 
   }
 
@@ -69,40 +74,28 @@ class UploadImg extends React.Component {
   render() {
     
     return (
-        <div>
-        <ImageUploader
-            withIcon={false}
-            withPreview={true}
-            buttonText="Choose image"
-            onChange={this.onDrop}
-            imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-            maxFileSize={5242880}
-            singleImage={true}
-        />
-        {console.log(this.state.file)}
-        { this.state.file.length > 0 && <Button onClick={ this.handleSummit }>{ "Submit" }</Button> }
+        <div className="outer">
+          <div className="inner_featured">
+            <ImageUploader
 
-        <div style={{
-                position: "fixed",
-                bottom: "0",
-                width: "100%"
-        }}>
-            <Wave mask="url(#mask)" fill="#1277b0" >
-                <defs>
-                    <linearGradient id="gradient" gradientTransform="rotate(90)">
-                    <stop offset="0" stopColor="white" />
-                    <stop offset="0.5" stopColor="black" />
-                    </linearGradient>
-                    <mask id="mask">
-                    <rect x="0" y="0" width="3000" height="300" fill="url(#gradient)"  />
-                    </mask>
-                </defs>
-            </Wave>
-        </div>
+                withIcon={true}
+                withPreview={true}
+                buttonText="Choose image"
+                onChange={this.onDrop}
+                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                maxFileSize={5242880}
+                singleImage={true}
+                className="image-style"
+                label="Effective applying Vietnamese for VQA system"
+            />
+          </div>
+          { this.state.file.length > 0 && this.handleSummit() }
+          { this.state.file.length > 0 && <div className="inner"><FormQuestion/></div>}
       </div>
       
     );
   }
 }
+
 
 export default UploadImg;
