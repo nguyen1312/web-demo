@@ -1,0 +1,13 @@
+version: '3'
+services: 
+    frontend:
+        build: 
+            context: .
+            dockerfile: frontend/Dockerfile.dev
+        command: npm run develop
+        container_name: web-demo
+        ports:
+            - "3000:3000"        
+        volumes: 
+            - ./:/web-demo/frontend
+            - /web-demo/frontend/node_modules

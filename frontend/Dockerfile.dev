@@ -1,0 +1,31 @@
+# pull the base image
+FROM node:alpine
+
+# set the working direction
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY frontend/package.json ./
+
+COPY frontend/package-lock.json ./
+
+RUN rm -f frontend/node_modules
+
+RUN rm -f frontend/package-json.lock
+
+RUN npm i -g gatsby-cli
+
+RUN npm install -g npm@7.20.5
+
+RUN npm config delete prefix
+
+RUN npm config set prefix /usr/local
+
+# add app
+COPY . ./
+
+# start app
+CMD ["npm", "run", "develop"]
